@@ -58,9 +58,10 @@ app.get('/api/currency/', (request, response) => {
  * @receives a get request to the URL: http://localhost:3001/api/currency/:id
  * @responds with returning specific data as a JSON
  */
-app.get('...', (request, response) => {
+app.get('/api/currency/:id', (request, response) => {
+  const specificID = Number(request.params.id);
 
-
+  response.json(currencies.filter(cur =>cur.id === specificID));
 })
 
 /**
@@ -69,7 +70,15 @@ app.get('...', (request, response) => {
  * with data object enclosed
  * @responds by returning the newly created resource
  */
-app.post('...', (request, response) => {
+app.post('/api/currency/', (request, response) => {
+  newCurrency = {
+    id : 3,
+    currencyCode: request.body.currencyCode,
+    country: request.body.country,
+    conversionRate: request.body.conversionRate
+  }
+
+  response.json(currencies.concat(newCurrency));
 
 
 })
@@ -81,7 +90,14 @@ app.post('...', (request, response) => {
  * Hint: updates the currency with the new conversion rate
  * @responds by returning the newly updated resource
  */
-app.put('...', (request, response) => {
+app.put('/api/currency/:id/:newRate', (request, response) => {
+  const specificID = Number(request.params.id);
+  const newRate = request.params.newRate;
+  const updateCurrencies = currencies;
+
+ updateCurrencies.find(cur => cur.id === specificID).conversionRate = newRate;
+
+ response.json(updateCurrencies);
   
 })
 
@@ -90,7 +106,7 @@ app.put('...', (request, response) => {
  * @receives a delete request to the URL: http://localhost:3001/api/currency/:id,
  * @responds by returning a status code of 204
  */
-app.post('...', (request, response) => {
+app.post('/api/currency/', (request, response) => {
 
 
 })
