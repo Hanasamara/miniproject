@@ -1,1 +1,37 @@
 GET http://localhost:3001/api/currency/
+
+###
+GET http://localhost:3001/
+
+###
+GET http://localhost:3001/api/currency/2
+###
+GET http://localhost:3001/api/currency/6
+
+
+###
+POST  http://localhost:3001/api/currency/ 
+Content-Type: application/json
+
+{
+    "currencyCode": "JD",
+    "country": "Jordan",
+    "conversionRate": 0.53
+}
+###
+POST  http://localhost:3001/api/currency/ 
+Content-Type: application/json
+
+{
+    "currencyCode": "JD",
+    "country": "Jordan"
+}
+
+
+###
+PUT http://localhost:3001/api/currency/1/0.85
+
+###
+DELETE http://localhost:3001/api/currency/2
+###
+DELETE http://localhost:3001/api/currency/9
