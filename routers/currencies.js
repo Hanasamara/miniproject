@@ -1,4 +1,6 @@
 const cursRouter = require('express').Router()
+const Currency = require("../models/currency");
+
 
 /**
  * DATA STORAGE
@@ -9,20 +11,20 @@ const cursRouter = require('express').Router()
  * country: a string, the name of the country
  * conversionRate: the amount, in that currency, required to equal 1 Canadian dollar
  */
-let currencies = [
-    {
-      id: 1,
-      currencyCode: "CDN",
-      country: "Canada",
-      conversionRate: 1
-    },
-    {
-      id: 2,
-      currencyCode: "USD",
-      country: "United States of America",
-      conversionRate: 0.75
-    }
-  ]
+// let currencies = [
+//     {
+//       id: 1,
+//       currencyCode: "CDN",
+//       country: "Canada",
+//       conversionRate: 1
+//     },
+//     {
+//       id: 2,
+//       currencyCode: "USD",
+//       country: "United States of America",
+//       conversionRate: 0.75
+//     }
+//   ]
 
 
 
@@ -32,7 +34,7 @@ let currencies = [
  * @responds with the string 'Hello World!'
  */
 cursRouter.get('/', (request, response) => {
-    response.send('Hello World!')
+    response.send('Welcome to Currency table')
   })
 
 /**
@@ -41,7 +43,14 @@ cursRouter.get('/', (request, response) => {
  * @responds with returning the data as a JSON
  */
 cursRouter.get('/api/currency/', (request, response) => {
-    response.json(currencies)
+  try{
+    Currency.findAll().then(currencies =>{
+      response.status(200).send(currencies);
+    })
+  }
+  catch (error){
+    console.log("error retreving currencies");
+  }
   })
 
 /**
@@ -50,8 +59,9 @@ cursRouter.get('/api/currency/', (request, response) => {
  * @responds with returning specific data as a JSON
  */
 cursRouter.get('/api/currency/:id', (request, response) => {
+  try{
     const specificID = Number(request.params.id);
-    const specificCurrency = currencies.find(cur =>cur.id === specificID);
+    const specificCurrency = Currency.findByPk(cur =>cur.id === specificID);
     
     if(specificCurrency){
       response.json(specificCurrency);
@@ -59,6 +69,10 @@ cursRouter.get('/api/currency/:id', (request, response) => {
     else{
       response.status(404).json({ error: 'resource not found' });
     }
+  }
+  catch (error){
+    console.log("error get specific currency from it's ID");
+  }
   })
 
 
@@ -68,26 +82,35 @@ cursRouter.get('/api/currency/:id', (request, response) => {
  * with data object enclosed
  * @responds by returning the newly created resource
  */
-cursRouter.post('/api/currency/', (request, response) => {
-
-    const currencyCode = request.body.currencyCode ;
-    const country = request.body.country;
-    const conversionRate = request.body.conversionRate;
+cursRouter.post('/api/currency/', async (request, response) => {
+  try{
+    // const currencyCode = request.body.currencyCode ;
+    // const countryId = request.body.countryId;
+    // const conversionRate = request.body.conversionRate;
   
-    if(!currencyCode || !country || !conversionRate){
-      response.status(400).json({ error: 'content missing' });
+    // if(!currencyCode || !countryId || !conversionRate){
+    //   response.status(400).json({ error: 'content missing' });
+    // }
+    // else{
+      await Currency.create({
+        currencyCode: request.body.currencyCode,
+        countryId: request.body.countryId ,
+        conversionRate: request.body.conversionRate
+      }).then(newCurrency=>{
+        response.json(newCurrency);
+      })
     }
-    else{
-    newCurrency = {
-      id : 3,
-      currencyCode: currencyCode,
-      country: country ,
-      conversionRate: conversionRate
+    // }
+    catch(error){
+      console.log("error adding currency: ",error);
+      response.sendStatus(500);
     }
-  
-    response.json(currencies.concat(newCurrency));
-    }
-  
+    // newCurrency = {
+    //   id : 3,
+    //   currencyCode: currencyCode,
+    //   country: country ,
+    //   conversionRate: conversionRate
+    // }
   })
 
 
@@ -99,17 +122,18 @@ cursRouter.post('/api/currency/', (request, response) => {
  * Hint: updates the currency with the new conversion rate
  * @responds by returning the newly updated resource
  */
-cursRouter.put('/api/currency/:id/:newRate', (request, response) => {
+cursRouter.put('/api/currency/:id/:newRate', async (request, response) => {
     const specificID = Number(request.params.id);
     const newRate = request.params.newRate;
-    const updateCurrencies = currencies;
+    // const updateCurrencies = currencies;
   
     //find specific content we need it then select key=> conversionRate and change it with new value
-    updateCurrencies.find(cur => cur.id === specificID).conversionRate = newRate;
-  
-    response.json(updateCurrencies);
-    
-  })
+    await Currency.update({conversionRate:newRate},{
+      where: {
+        id: specificID
+      }
+    }).then(response.json(Currency.findByPk(cur =>cur.id === specificID)))
+  });
   
 
 /**

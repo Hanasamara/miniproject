@@ -1,8 +1,13 @@
-const express = require('express')  // We import the express application
-const cors = require('cors') // Necessary for localhost
-const { Console } = require('console')
-const middleware = require('./utils/middleware')
-const cursRouter =require('./routers/currencies')
+const express = require('express');  // We import the express application
+require("dotenv").config();
+const cors = require('cors'); // Necessary for localhost
+const { Console, error } = require('console');
+const middleware = require('./utils/middleware');
+const cursRouter =require('./routers/currencies');
+const countryRouter = require('./routers/countries');
+const sequelize = require("./config/sequelize");
+
+
 
 const app = express() // Creates an express application in app
 
@@ -23,6 +28,8 @@ app.use(middleware.logger);
  * @responds with the string 'Hello World!'
  */
 app.use('', cursRouter);
+
+app.use('/api/count',countryRouter);
 
 /**
  * TODO: GET Endpoint
@@ -65,7 +72,13 @@ app.use('/api/currency/:id', cursRouter);
 // Added middleware for unknown endpoint
 app.use(middleware.unknownEndpoint);
 
-const PORT = 3001
+const PORT = process.env.PORT;
+
+sequelize.sync().then(() =>{
+  console.log("DataBase synced successfully");
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`)
+});
+}).catch((error) =>{
+  console.error("error in syncing the database: ",error);
 })

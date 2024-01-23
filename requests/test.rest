@@ -14,8 +14,9 @@ POST  http://localhost:3001/api/currency/
 Content-Type: application/json
 
 {
+    "id":1,
     "currencyCode": "JD",
-    "country": "Jordan",
+    "countryId": 101,
     "conversionRate": 0.53
 }
 ###
