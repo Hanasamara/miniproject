@@ -19,16 +19,6 @@ Content-Type: application/json
     "conversionRate": 0.53
 }
 ###
-POST  http://localhost:3001/api/currency/ 
-Content-Type: application/json
-
-{
-    "currencyCode": "JD",
-    "country": "Jordan"
-}
-
-
-###
 PUT http://localhost:3001/api/currency/1/0.85
 
 ###

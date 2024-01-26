@@ -22,21 +22,21 @@ app.use(middleware.logger);
  * @receives a get request to the URL: http://localhost:3001/
  * @responds with the string 'Hello World!'
  */
-app.use('', cursRouter);
+
 
 /**
  * TODO: GET Endpoint
  * @receives a get request to the URL: http://localhost:3001/api/currency/
  * @responds with returning the data as a JSON
  */
-app.use('/api/currency',cursRouter);
+app.use('/',cursRouter);
 
 /**
  * TODO: GET:id Endpoint
  * @receives a get request to the URL: http://localhost:3001/api/currency/:id
  * @responds with returning specific data as a JSON
  */
-app.use('/api/currency/:id', cursRouter);
+
 
 /**
  * TODO: POST Endpoint
@@ -44,7 +44,7 @@ app.use('/api/currency/:id', cursRouter);
  * with data object enclosed
  * @responds by returning the newly created resource
  */
-app.use('/api/currency/', cursRouter)
+
 
 /**
  * TODO: PUT:id endpoint
@@ -53,14 +53,14 @@ app.use('/api/currency/', cursRouter)
  * Hint: updates the currency with the new conversion rate
  * @responds by returning the newly updated resource
  */
-app.use('/api/currency/:id/:newRate', cursRouter);
+
 
 /**
  * TODO: DELETE:id Endpoint
  * @receives a delete request to the URL: http://localhost:3001/api/currency/:id,
  * @responds by returning a status code of 204
  */
-app.use('/api/currency/:id', cursRouter);
+
 
 // Added middleware for unknown endpoint
 app.use(middleware.unknownEndpoint);
