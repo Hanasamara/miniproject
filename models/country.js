@@ -5,6 +5,7 @@ const {DataTypes} = require("sequelize");
 const Country = sequelize.define("Country",{
     id:{
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         unique: true,
         primaryKey: true

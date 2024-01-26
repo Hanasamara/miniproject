@@ -2,6 +2,7 @@ const cursRouter = require('express').Router()
 const Currency = require("../models/currency");
 
 
+
 /**
  * DATA STORAGE
  * We're using a local variable 'currencies' to store our data: a list of currency objects
@@ -33,7 +34,7 @@ const Currency = require("../models/currency");
  * @receives a get request to the URL: http://localhost:3001/
  * @responds with the string 'Hello World!'
  */
-cursRouter.get('/', (request, response) => {
+cursRouter.get('/about', (request, response) => {
     response.send('Welcome to Currency table')
   })
 
@@ -42,7 +43,7 @@ cursRouter.get('/', (request, response) => {
  * @receives a get request to the URL: http://localhost:3001/api/currency/
  * @responds with returning the data as a JSON
  */
-cursRouter.get('/api/currency/', (request, response) => {
+cursRouter.get('/', (request, response) => {
   try{
     Currency.findAll().then(currencies =>{
       response.status(200).send(currencies);
@@ -58,10 +59,10 @@ cursRouter.get('/api/currency/', (request, response) => {
  * @receives a get request to the URL: http://localhost:3001/api/currency/:id
  * @responds with returning specific data as a JSON
  */
-cursRouter.get('/api/currency/:id', (request, response) => {
+cursRouter.get('/:id', async(request, response) => {
   try{
-    const specificID = Number(request.params.id);
-    const specificCurrency = Currency.findByPk(cur =>cur.id === specificID);
+    const specificID = request.params.id;
+    const specificCurrency = await Currency.findByPk(specificID);
     
     if(specificCurrency){
       response.json(specificCurrency);
@@ -82,36 +83,29 @@ cursRouter.get('/api/currency/:id', (request, response) => {
  * with data object enclosed
  * @responds by returning the newly created resource
  */
-cursRouter.post('/api/currency/', async (request, response) => {
-  try{
-    // const currencyCode = request.body.currencyCode ;
-    // const countryId = request.body.countryId;
-    // const conversionRate = request.body.conversionRate;
-  
-    // if(!currencyCode || !countryId || !conversionRate){
-    //   response.status(400).json({ error: 'content missing' });
-    // }
-    // else{
-      await Currency.create({
-        currencyCode: request.body.currencyCode,
-        countryId: request.body.countryId ,
-        conversionRate: request.body.conversionRate
-      }).then(newCurrency=>{
-        response.json(newCurrency);
-      })
-    }
-    // }
-    catch(error){
-      console.log("error adding currency: ",error);
+cursRouter.post('/', async (request, response) => {
+  try {
+      const currencyCode = request.body.currencyCode;
+      const countryId = request.body.countryId;
+      const conversionRate = request.body.conversionRate;
+      console.log(countryId);
+
+      if (!currencyCode || !countryId || !conversionRate) {
+          response.status(400).json({ error: 'Missing required fields' });
+      } else {
+          await Currency.create({
+              currencyCode: currencyCode,
+              countryId: countryId,
+              conversionRate: conversionRate
+          }).then(newCurrency => {
+              response.json(newCurrency);
+          });
+      }
+  } catch (error) {
+      console.error("Error adding currency:", error);
       response.sendStatus(500);
-    }
-    // newCurrency = {
-    //   id : 3,
-    //   currencyCode: currencyCode,
-    //   country: country ,
-    //   conversionRate: conversionRate
-    // }
-  })
+  }
+});
 
 
 
@@ -122,7 +116,7 @@ cursRouter.post('/api/currency/', async (request, response) => {
  * Hint: updates the currency with the new conversion rate
  * @responds by returning the newly updated resource
  */
-cursRouter.put('/api/currency/:id/:newRate', async (request, response) => {
+cursRouter.put('/:id/:newRate', async (request, response) => {
     const specificID = Number(request.params.id);
     const newRate = request.params.newRate;
     // const updateCurrencies = currencies;
@@ -132,7 +126,9 @@ cursRouter.put('/api/currency/:id/:newRate', async (request, response) => {
       where: {
         id: specificID
       }
-    }).then(response.json(Currency.findByPk(cur =>cur.id === specificID)))
+    });
+    const updatedCurrency = await Currency.findByPk(specificID);
+    response.json(updatedCurrency);
   });
   
 
@@ -141,21 +137,34 @@ cursRouter.put('/api/currency/:id/:newRate', async (request, response) => {
  * @receives a delete request to the URL: http://localhost:3001/api/currency/:id,
  * @responds by returning a status code of 204
  */
-cursRouter.delete('/api/currency/:id', (request, response) => {
-    const specificID = Number(request.params.id);
+cursRouter.delete('/:id', async(request, response) => {
+  try{
+    const specificID = request.params.id;
     // used find because i want to check if that currency existed or not
-    const deletedCurrency = currencies.find(cur => cur.id === specificID);
+    const deletedCurrency = await Currency.findByPk(specificID);
     
     //if i want return new data without deleted currency i will use filter
-    const updateCurrencies = currencies.filter(cur => cur.id !== specificID);
-    //console.log(updateCurrencies); 
-  
-    if(deletedCurrency){
-      response.sendStatus(204);
-    }
-    else{
-      response.status(404).json({ error: 'resource not found' });
-    }
+    // const updateCurrencies = currencies.filter(cur => cur.id !== specificID);
+    // console.log(deletedCurrency); 
+    await Currency.destroy({
+      where:{
+        id:specificID
+      }
+    }).then(deleted =>
+      {
+        if(deleted === 1){
+          console.log("deleted currency with id - ",specificID);
+          response.json({deletingRecord :deletedCurrency});
+        }
+        else{
+          // console.log('No currency record found with the specified ID.');
+          response.status(404).json({ error: 'No currency record found with the specified ID.' });
+        }
+
+      })
+    }catch (error) {
+    console.error("Error deleting currency:", error);
+    response.sendStatus(500);}
   
   })
   

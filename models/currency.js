@@ -16,14 +16,17 @@ const Currency = sequelize.define("Currency",{
     },
     countryId:{
         type: DataTypes.INTEGER,
-        foreignKey :true
+        references:{
+            model: Country,
+            key : 'id'
+        }
     },
     conversionRate:{
         type: DataTypes.DECIMAL
     }
 })
 
-Currency.belongsTo(Country, { targetKey: 'id', foreignKey: 'countryId' });
+// Currency.belongsTo(Country, { targetKey: 'id', foreignKey: 'countryId' });
 
 
 module.exports = Currency;
