@@ -12,7 +12,8 @@ const Currency = sequelize.define("Currency",{
         primaryKey: true
     },
     currencyCode :{
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true
     },
     countryId:{
         type: DataTypes.INTEGER,
