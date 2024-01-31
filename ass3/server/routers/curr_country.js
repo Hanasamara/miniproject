@@ -20,6 +20,6 @@ currCountry.get('/', (request, response) => {
     }
     })
 
-//Currency.belongsTo(Country, { targetKey: 'id', foreignKey: 'countryId' });
+// Currency.belongsTo(Country, { targetKey: 'id', foreignKey: 'countryId' });
 
 module.exports = currCountry;
