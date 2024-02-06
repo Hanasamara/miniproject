@@ -5,11 +5,17 @@ function Convert()
         <div>
             <h3>Convert</h3>
         </div>
-        <div className="conbox">
-            <input placeholder="Currency Code"/>
-            <input placeholder="Amount"/>
+        <form className="conbox">
+            {/* I used chatgpt to create regex to allow only accepted input for each field in these input fields */}
+            <label>FROM</label>
+            <input type="text" required pattern="[a-zA-Z]{3}" placeholder="Currency Code"/>
+            <input type="number" pattern="^\d+$" placeholder="Amount"/>
+
+            <label>TO</label>
+            <input type="text" required pattern="[a-zA-Z]{3}" placeholder="Currency Code"/>
             <button>Convert</button>
-        </div>
+        </form><br></br>
+        <p className="outputCurrencyAmount"></p>
 
     </div>
     );
