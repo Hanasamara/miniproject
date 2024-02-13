@@ -1,0 +1,62 @@
+const Country = require("./models/country");
+
+Country.sync().then(()=>
+{
+    console.log("Sync country table");
+    Country.bulkCreate([
+        { id: 2020, name: 'Sudan' },
+        { id: 5001, name: 'Oman' },
+        { id: 1001, name: 'United States' },
+        { id: 1002, name: 'Canada' },
+        { id: 1003, name: 'Australia' },
+        { id: 1004, name: 'United Kingdom' },
+        { id: 1005, name: 'Germany' },
+        { id: 1006, name: 'France' },
+        { id: 1007, name: 'Spain' },
+        { id: 1008, name: 'Italy' },
+        { id: 1009, name: 'Japan' },
+        { id: 1010, name: 'China' },
+        { id: 1011, name: 'India' },
+        { id: 1012, name: 'Brazil' },
+        { id: 1013, name: 'Russia' },
+        { id: 1014, name: 'South Africa' },
+        { id: 1015, name: 'Mexico' },
+        { id: 1016, name: 'Argentina' },
+        { id: 1017, name: 'Nigeria' },
+        { id: 1018, name: 'Egypt' },
+        { id: 1019, name: 'Saudi Arabia' },
+        { id: 1020, name: 'South Korea' },
+        { id: 1021, name: 'Turkey' },
+        { id: 1022, name: 'Indonesia' },
+        { id: 1023, name: 'Netherlands' },
+        { id: 1024, name: 'Switzerland' },
+        { id: 1025, name: 'Sweden' },
+        { id: 1026, name: 'Belgium' },
+        { id: 1027, name: 'Norway' },
+        { id: 1028, name: 'Austria' },
+        { id: 1029, name: 'United Arab Emirates' },
+        { id: 1030, name: 'Denmark' },
+        { id: 1031, name: 'Singapore' },
+        { id: 1032, name: 'Poland' },
+        { id: 1033, name: 'Palastine' },
+        { id: 1034, name: 'Ireland' },
+        { id: 1035, name: 'Portugal' },
+        { id: 1036, name: 'Malaysia' },
+        { id: 1037, name: 'Thailand' },
+        { id: 1038, name: 'Greece' },
+        { id: 1039, name: 'Ukraine' },
+        { id: 1040, name: 'Philippines' },
+        { id: 1041, name: 'Pakistan' },
+        { id: 1042, name: 'Colombia' },
+        { id: 1043, name: 'Bangladesh' },
+        { id: 1044, name: 'Vietnam' },
+        { id: 1045, name: 'Czech Republic' },
+        { id: 1046, name: 'Chile' },
+        { id: 1047, name: 'Romania' },
+        { id: 1048, name: 'Hungary' },
+        { id: 1049, name: 'Belarus' },
+        { id: 1050, name: 'Azerbaijan' }
+    ])
+})
+
+

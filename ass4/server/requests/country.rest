@@ -1,0 +1,23 @@
+
+GET http://localhost:5173/api/country/about/
+
+###
+POST  http://localhost:5173/api/country/ 
+Content-Type: application/json
+
+{
+    "name":"Eygpt"
+}
+
+###
+GET http://localhost:5173/api/country/
+
+###
+
+GET http://localhost:5173/api/country/2
+
+###
+
+DELETE  http://localhost:5173/api/country/2
+
+###
