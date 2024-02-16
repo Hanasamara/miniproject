@@ -1,9 +1,8 @@
 const sequelize = require("../config/sequelize");
 const {DataTypes} = require("sequelize");
-const Country = require("./country");
 
 //modle represent table and should be singular and start with Capital letter
-const Currency = sequelize.define("Currency",{
+const testCurrency = sequelize.define("testCurrency",{
     id:{
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -15,22 +14,14 @@ const Currency = sequelize.define("Currency",{
         type: DataTypes.STRING,
         unique: true
     },
-    countryId:{
-        type: DataTypes.INTEGER,
-        references:{
-            model: Country,
-            key : 'id'
-        }
-    },
     conversionRate:{
         type: DataTypes.DECIMAL
     }
 },
-{moduleName:'currency'}
+{moduleName:'testCurrency'}
 )
 
-Currency.belongsTo(Country, { targetKey: 'id', foreignKey: 'countryId' });
 
 
-module.exports = Currency;
+module.exports = testCurrency;
  

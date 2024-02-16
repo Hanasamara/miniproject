@@ -9,6 +9,8 @@ const currCountry= require('./routers/curr_country');
 const sequelize = require("./config/sequelize");
 
 
+console.log(`We are working on ${process.env.NODE_ENV}`);
+
 
 const app = express() // Creates an express application in app
 
@@ -19,6 +21,7 @@ const app = express() // Creates an express application in app
  */
 app.use(cors())
 app.use(express.json())
+
 
  // Added morgan middleware to log requests
 app.use(middleware.logger);
@@ -39,7 +42,7 @@ const server = app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`)
 });
 
-module.children = server
+module.exports = server
 // sequelize.sync().then(() =>{
 //   console.log("DataBase synced successfully");
 // a

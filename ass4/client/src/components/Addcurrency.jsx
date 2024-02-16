@@ -11,7 +11,7 @@ function Addcurrency()
     const handleAddCurrency = async (e) => {
         e.preventDefault();
         try {
-            console.log(currencyCode,countryId,conversionRate);
+            //console.log(currencyCode,countryId,conversionRate);
             await axios.post("http://localhost:3001/api/currency/",
               {
                 "currencyCode": currencyCode,

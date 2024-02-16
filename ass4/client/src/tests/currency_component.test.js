@@ -55,11 +55,24 @@ test('Testing conversion section', async () => {
 
     // user click the button
     await user.click(convertButton);
+    // user.click(convertButton).then(()=>{
+    //     const convertedAmount = screen.findByText("78");
+    //     console.log(convertedAmount.textContent);
+    //     expect(Number(convertedAmount.textContent)).toBe();
+    // });
     
     // check if output match desired amount
-    const convertedAmount =  await screen.findByText("78");
+    const convertedAmount = await screen.findByText("78");
+    console.log(convertedAmount);
     console.log(convertedAmount.textContent);
     expect(Number(convertedAmount.textContent)).toBe(78);
+
+    // screen.findByText("78").then( convertedAmount =>{
+    //     console.log(convertedAmount.textContent);
+    //     expect(Number(convertedAmount.textContent)).toBe(78);
+    // });
+    // console.log(convertedAmount.textContent);
+    // expect(Number(convertedAmount.textContent)).toBe(78);
 
 
 });

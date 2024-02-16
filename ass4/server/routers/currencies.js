@@ -1,6 +1,10 @@
 const cursRouter = require('express').Router()
-const Currency = require("../models/currency");
+// const Currency = require("../models/currency");
 const express = require('express');
+
+// import both test and dev currency
+
+const Currency = process.env.NODE_ENV === "test" ? require("../models/testCurrency"):require("../models/currency");
 
 //Check router
 cursRouter.get('/about', (request, response) => {
@@ -41,8 +45,10 @@ cursRouter.get('/:id', async(request, response) => {
 cursRouter.post('/', async (request, response) => {
   console.log("recieve request");
   try {
+    if (process.env.NODE_ENV==='development')
+    {
       const currencyCode = request.body.currencyCode;
-      const countryId = request.body.countryId;
+      const countryId = 1234;
       const conversionRate = request.body.conversionRate;
       console.log(countryId);
 
@@ -58,6 +64,21 @@ cursRouter.post('/', async (request, response) => {
               response.json(newCurrency);
           });
       }
+    }else{
+      const currencyCode = request.body.currencyCode;
+      const conversionRate = request.body.conversionRate;
+      if (!currencyCode || !conversionRate) {
+        response.status(400).json({ error: 'Missing required fields' });
+    } else {
+        console.log("inside else");
+        await Currency.create({
+            currencyCode: currencyCode,
+            conversionRate: conversionRate
+        }).then(newCurrency => {
+            response.json(newCurrency);
+        });
+    }
+    }
   } catch (error) {
       console.error("Error adding currency:", error);
       response.sendStatus(500);
