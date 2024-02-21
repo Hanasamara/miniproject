@@ -1,0 +1,8 @@
+name: Testing main pipeline
+
+#Trigger event
+on:
+    push:
+        branches:
+            - main
+        
