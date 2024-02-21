@@ -1,0 +1,23 @@
+
+GET http://localhost:3001/api/country/about/
+
+###
+POST  http://localhost:3001/api/country/ 
+Content-Type: application/json
+
+{
+    "name":"TEST"
+}
+
+###
+GET http://localhost:3001/api/country/
+
+###
+
+GET http://localhost:3001/api/country/2
+
+###
+
+DELETE  http://localhost:3001/api/country/11
+
+###

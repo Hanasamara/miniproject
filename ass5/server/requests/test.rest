@@ -1,0 +1,32 @@
+GET http://localhost:3001/api/currency/
+
+###
+GET http://localhost:3001/api/currency/about
+
+###
+GET http://localhost:3001/api/currency/230
+###
+GET http://localhost:3001/api/currency/6
+
+
+###
+POST  http://localhost:3001/api/currency/
+Content-Type: application/json
+
+{
+    "currencyCode": "TST",
+    "conversionRate": 0.78,
+    "countryId": 11
+}
+
+###
+PUT http://localhost:3001/api/currency/4/0.53
+
+###
+DELETE http://localhost:3001/api/currency/283
+###
+DELETE http://localhost:3001/api/currency/9
+
+
+###
+GET http://localhost:3001/api/currency-country
