@@ -14,15 +14,16 @@ POST  http://localhost:3001/api/currency/
 Content-Type: application/json
 
 {
-    "currencyCode": "CAD",
-    "conversionRate": 0.78
+    "currencyCode": "TST",
+    "conversionRate": 0.78,
+    "countryId": 11
 }
 
 ###
 PUT http://localhost:3001/api/currency/4/0.53
 
 ###
-DELETE http://localhost:3001/api/currency/23
+DELETE http://localhost:3001/api/currency/283
 ###
 DELETE http://localhost:3001/api/currency/9
 

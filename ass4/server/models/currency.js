@@ -19,8 +19,10 @@ const Currency = sequelize.define("Currency",{
         type: DataTypes.INTEGER,
         references:{
             model: Country,
-            key : 'id'
+            key : 'id',
+            onDelete: 'CASCADE'
         }
+        
     },
     conversionRate:{
         type: DataTypes.DECIMAL
@@ -29,7 +31,7 @@ const Currency = sequelize.define("Currency",{
 {moduleName:'currency'}
 )
 
-Currency.belongsTo(Country, { targetKey: 'id', foreignKey: 'countryId' });
+Currency.belongsTo(Country, { targetKey: 'id', foreignKey: 'countryId',onDelete: 'CASCADE' });
 
 
 module.exports = Currency;
