@@ -1,0 +1,55 @@
+#root {
+  max-width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0.5rem;
+  text-align: center;
+  align-items: center;
+  background-image: url(./img/currency.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: aliceblue;
+
+}
+
+h2 {
+  font-size: 3.2rem;
+  line-height: 1;
+}
+
+.usercomp, .converter, .addcurrency, .deletecurrency, .updatecurrency{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userinput, .bton{
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  gap: 10px;
+  padding: 5px;
+}
+
+.signup, .login{
+  border-radius: 10px;
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 0.9em;
+  font-weight: 500;
+  font-family: inherit;
+  color: black;
+  background-color: #b6b4b4;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.conbox, .addinginput, .delcomponent, .updatecomponent{
+  display: flex;
+  direction: row;
+  gap: 10px;
+}
+
+
+
