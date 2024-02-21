@@ -1,23 +1,23 @@
 
-GET http://localhost:5173/api/country/about/
+GET http://localhost:3001/api/country/about/
 
 ###
-POST  http://localhost:5173/api/country/ 
+POST  http://localhost:3001/api/country/ 
 Content-Type: application/json
 
 {
-    "name":"Eygpt"
+    "name":"TEST"
 }
 
 ###
-GET http://localhost:5173/api/country/
+GET http://localhost:3001/api/country/
 
 ###
 
-GET http://localhost:5173/api/country/2
+GET http://localhost:3001/api/country/2
 
 ###
 
-DELETE  http://localhost:5173/api/country/2
+DELETE  http://localhost:3001/api/country/11
 
 ###

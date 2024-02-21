@@ -48,7 +48,7 @@ cursRouter.post('/', async (request, response) => {
     if (process.env.NODE_ENV==='development')
     {
       const currencyCode = request.body.currencyCode;
-      const countryId = 1234;
+      const countryId = request.body.countryId;
       const conversionRate = request.body.conversionRate;
       console.log(countryId);
 
